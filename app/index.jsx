@@ -1,12 +1,49 @@
 import Entypo from '@expo/vector-icons/Entypo';
+import { useState } from 'react';
 import { Dimensions, Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import NoteCard from '../components/card';
 import "./global.css";
+
 
 export default function Index() {
 
+
   const iOS = Platform.OS === 'ios'
   const { width, height } = Dimensions.get('window')
+  const [notes, setNotes] = useState([{
+    title: 'Title',
+    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+    date: '02/03/2025 - 3:12 pm',
+    bgColor: 'bg-blue-200'
+  }, {
+    title: 'Title',
+    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+    date: '02/03/2025 - 3:12 pm',
+    bgColor: 'bg-green-200'
+  }, {
+    title: 'Title',
+    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+    date: '02/03/2025 - 3:12 pm',
+    bgColor: 'bg-neutral-200'
+  } ,{
+    title: 'Title',
+    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+    date: '02/03/2025 - 3:12 pm',
+    bgColor: 'bg-purple-200'
+  }, {
+    title: 'Title',
+    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+    date: '02/03/2025 - 3:12 pm',
+    bgColor: 'bg-red-200'
+  }
+, {
+  title: 'Title',
+  noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  date: '02/03/2025 - 3:12 pm',
+  bgColor: 'bg-amber-200'
+}])
+
   return (
 
     <SafeAreaView className='flex-1 bg-yellow-100'>
@@ -59,18 +96,22 @@ export default function Index() {
       <View className='mt-2 mx-3'>
 
         <ScrollView
-        horizontal={false}
-        showsVerticalScrollIndicator={false}>
+          horizontal={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ rowGap: 8, flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 120 }}>
+
           {/* card */}
-          <View className='rounded-2xl bg-red-200 p-2' style={{ height: height * 0.2 }}>
-            <Text className='text-3xl font-bold'>Title</Text>
-            <Text className='text-xl'>content</Text>
-            <Text className='text-sm'>Date</Text>
-          </View>
-    
+          {
+            notes.map((note, index) => <NoteCard key={index} data={note} />
+            )
+          }
 
         </ScrollView>
       </View>
+
+      {/* Floating Action button */}
+
+      {/* <AntDesign name="plus" size={24} color="black" /> */}
 
     </SafeAreaView >
 
