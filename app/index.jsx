@@ -1,13 +1,13 @@
+import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
+import { Link } from 'expo-router';
 import { useState } from 'react';
 import { Dimensions, Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NoteCard from '../components/card';
 import "./global.css";
 
-
 export default function Index() {
-
 
   const iOS = Platform.OS === 'ios'
   const { width, height } = Dimensions.get('window')
@@ -26,7 +26,7 @@ export default function Index() {
     noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
     date: '02/03/2025 - 3:12 pm',
     bgColor: 'bg-neutral-200'
-  } ,{
+  }, {
     title: 'Title',
     noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
     date: '02/03/2025 - 3:12 pm',
@@ -37,12 +37,16 @@ export default function Index() {
     date: '02/03/2025 - 3:12 pm',
     bgColor: 'bg-red-200'
   }
-, {
-  title: 'Title',
-  noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-  date: '02/03/2025 - 3:12 pm',
-  bgColor: 'bg-amber-200'
-}])
+    , {
+    title: 'Title',
+    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+    date: '02/03/2025 - 3:12 pm',
+    bgColor: 'bg-amber-200'
+  }])
+
+  const handleNewNotePress = () => {
+    console.log('pressed new Note')
+  }
 
   return (
 
@@ -110,8 +114,13 @@ export default function Index() {
       </View>
 
       {/* Floating Action button */}
-
-      {/* <AntDesign name="plus" size={24} color="black" /> */}
+      <Link
+      href={'Note'}
+        className='absolute bottom-8 right-8 rounded-full border-2 bg-purple-200 p-4'
+        onPress={handleNewNotePress}>
+        
+        <AntDesign className='' name="plus" size={24} color="black" />
+      </Link>
 
     </SafeAreaView >
 
