@@ -1,8 +1,7 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import React from 'react';
-import { Platform, ScrollView, Text, TextInput, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 const Note = () => {
 
   const iOS = Platform.OS == 'ios'
@@ -20,14 +19,30 @@ const Note = () => {
       </View>
 
       {/* Title input */}
-      <TextInput className='border-2 border-red-300 mx-4 rounded-full px-3' placeholder='Title' />
+      <TextInput className='border-2 border-blue-100 mx-4 rounded-full px-3 text-xl text-black' placeholder='Title' />
+
+      {/* Note content */}
 
       <ScrollView
         horizontal={false}
-        showsVerticalScrollIndicator={false}>
+        className='border-t-2 border-t-blue-100 mx-4 mt-2 '>
 
-        <TextInput placeholder='' />
+        <KeyboardAvoidingView>
+
+          <TextInput
+            multiline={true}
+            placeholder='Note here ...'
+            className='text-lg'
+          />
+        </KeyboardAvoidingView>
       </ScrollView>
+
+      <View className='flex-row justify-center items-center gap-4'>
+
+      <colourPalette colourCode={'bg-red-200'}/>
+
+      </View>
+
     </SafeAreaView>
   )
 }
