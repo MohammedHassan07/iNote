@@ -11,6 +11,7 @@ export default function Index() {
 
   const iOS = Platform.OS === 'ios'
   const { width, height } = Dimensions.get('window')
+
   const [notes, setNotes] = useState([{
     title: 'Title',
     noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
@@ -31,18 +32,20 @@ export default function Index() {
     noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
     date: '02/03/2025 - 3:12 pm',
     bgColor: 'bg-purple-200'
-  }, {
-    title: 'Title',
-    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-    date: '02/03/2025 - 3:12 pm',
-    bgColor: 'bg-red-200'
-  }
-    , {
-    title: 'Title',
-    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-    date: '02/03/2025 - 3:12 pm',
-    bgColor: 'bg-amber-200'
-  }])
+  },
+  //  {
+  //   title: 'Title',
+  //   noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  //   date: '02/03/2025 - 3:12 pm',
+  //   bgColor: 'bg-red-200'
+  // }
+  //   , {
+  //   title: 'Title',
+  //   noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  //   date: '02/03/2025 - 3:12 pm',
+  //   bgColor: 'bg-amber-200'
+  // }
+  ])
 
   const handleNewNotePress = () => {
     console.log('pressed new Note')
@@ -50,7 +53,7 @@ export default function Index() {
 
   return (
 
-    <SafeAreaView className='flex-1 bg-yellow-100'>
+    <SafeAreaView className='flex-1 bg-red-300'>
 
       {/* logo */}
       <View className={`flex-row items-center justify-between mx-3 ${iOS ? '-mb-2' : 'mb-3'}`}>
@@ -115,10 +118,10 @@ export default function Index() {
 
       {/* Floating Action button */}
       <Link
-      href={'Note'}
+        href={'/Note'}
         className='absolute bottom-8 right-8 rounded-full border-2 bg-purple-200 p-4'
         onPress={handleNewNotePress}>
-        
+
         <AntDesign className='' name="plus" size={24} color="black" />
       </Link>
 
