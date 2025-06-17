@@ -33,18 +33,30 @@ export default function Index() {
     date: '02/03/2025 - 3:12 pm',
     bgColor: 'bg-purple-200'
   },
-  //  {
-  //   title: 'Title',
-  //   noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-  //   date: '02/03/2025 - 3:12 pm',
-  //   bgColor: 'bg-red-200'
-  // }
-  //   , {
-  //   title: 'Title',
-  //   noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-  //   date: '02/03/2025 - 3:12 pm',
-  //   bgColor: 'bg-amber-200'
-  // }
+  {
+    title: 'Title',
+    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+    date: '02/03/2025 - 3:12 pm',
+    bgColor: 'bg-red-200'
+  }
+    , {
+    title: 'Title',
+    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+    date: '02/03/2025 - 3:12 pm',
+    bgColor: 'bg-amber-200'
+  },
+  {
+    title: 'Title',
+    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+    date: '02/03/2025 - 3:12 pm',
+    bgColor: 'bg-green-200'
+  },
+  {
+    title: 'Title',
+    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+    date: '02/03/2025 - 3:12 pm',
+    bgColor: 'bg-blue-200'
+  }
   ])
 
   const handleNewNotePress = () => {
@@ -77,23 +89,23 @@ export default function Index() {
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Text className='text-white rounded-full bg-neutral-700 text-lg py-1 px-2'>Important</Text>
+            <Text className='text-white rounded-full bg-neutral-700 text-lg py-1 px-2'>College</Text>
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Text className='text-white rounded-full bg-neutral-700 text-lg py-1 px-2'>Important</Text>
+            <Text className='text-white rounded-full bg-neutral-700 text-lg py-1 px-2'>Gym</Text>
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Text className='text-white rounded-full bg-neutral-700 text-lg py-1 px-2'>Important</Text>
+            <Text className='text-white rounded-full bg-neutral-700 text-lg py-1 px-2'>Javascript</Text>
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Text className='text-white rounded-full bg-neutral-700 text-lg py-1 px-2'>Important</Text>
+            <Text className='text-white rounded-full bg-neutral-700 text-lg py-1 px-2'>Web Series</Text>
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Text className='text-white rounded-full bg-neutral-700 text-lg py-1 px-2'>Important</Text>
+            <Text className='text-white rounded-full bg-neutral-700 text-lg py-1 px-2'>Resources</Text>
           </TouchableOpacity>
 
         </ScrollView>
@@ -119,10 +131,10 @@ export default function Index() {
       {/* Floating Action button */}
       <Link
         href={'/Note'}
-        className='absolute bottom-8 right-8 rounded-full border-2 bg-purple-200 p-4'
+        className='absolute bottom-8 right-8 rounded-full border-2 border-purple-200 bg-purple-200 p-4'
         onPress={handleNewNotePress}>
 
-        <AntDesign className='' name="plus" size={24} color="black" />
+        <AntDesign name="plus" size={24} color="black" />
       </Link>
 
     </SafeAreaView >
