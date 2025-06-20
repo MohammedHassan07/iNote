@@ -1,21 +1,10 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
+import { getBodyColor } from '../utils/BgAndBorderColour'
+
 
 const ColourPalette = ({ code, handleBgChange }) => {
 
-  const getBodyColor = (color) => {
-    const map = {
-      red: '#ffc9c9',  // 200   
-      blue: '#bedbff',
-      yellow: '#fff085',
-      green: '#b9f8cf',
-      neutral: '#e5e5e5',
-      purple: '#e9d4ff',
-      amber: '#fee685',
-      lime: '#d8f999',
-    }
-    return map[color]
-  }
   return (
     <TouchableOpacity
 

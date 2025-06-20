@@ -1,9 +1,11 @@
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { Platform, ScrollView, Text, TextInput, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ColourPalette from '../components/ColourPalette';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { useNavigation } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
+import { Platform, ScrollView, Text, TextInput, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import ColourPalette from '../components/ColourPalette'
+import { createTable, saveNote } from '../lib/dataBase'
+import { colourCode, getBodyColor, getBorderColor } from '../utils/BgAndBorderColour'
 
 const Note = () => {
 
@@ -13,10 +15,11 @@ const Note = () => {
   const [bgColour, setBgcolour] = useState('blue')
   const navigation = useNavigation()
 
-  const colourCode = ['red', 'blue', 'yellow', 'green', 'neutral', 'purple', 'lime', 'amber'];
-
   // useEffect is used becuase it avoids memory leaks due to the event listener we added to the on going back
   useEffect(() => {
+
+    // Create Table if not exists
+    createTable()
 
     const unsubscribe =
       navigation.addListener('beforeRemove', async () => {
@@ -26,51 +29,43 @@ const Note = () => {
     return unsubscribe
   }, [navigation, noteTitle, noteContent])
 
-
-  const getBorderColor = (color) => {
-    // console.log(color)
-    const map = {
-      red: '#ffe2e2', // 100
-      blue: '#dbeafe',
-      yellow: '#fef9c2',
-      green: '#dcfce7',
-      neutral: '#f5f5f5',
-      purple: '#f3e8ff',
-      amber: '#fef3c6',
-      lime: '#ecfcca',
-    }
-    return map[color]
-  }
-
-  const getBodyColor = (color) => {
-    const map = {
-      red: '#ffc9c9',  // 200   
-      blue: '#bedbff',
-      yellow: '#fff085',
-      green: '#b9f8cf',
-      neutral: '#e5e5e5',
-      purple: '#e9d4ff',
-      amber: '#fee685',
-      lime: '#d8f999',
-    }
-    return map[color]
-  }
-
   const handleBgChange = (code) => {
 
     setBgcolour(code)
     console.log('pressed bgChange', code)
   }
 
+  // on tick pressed
   const handleNoteData = async () => {
 
     await saveNoteData(noteTitle, noteContent)
   }
 
+  const getDate = () => {
+
+    const now = new Date()
+
+    const day = String(now.getDate()).padStart(2, '0')
+    const month = String(now.getMonth() + 1).padStart(2, '0') 
+    const year = now.getFullYear()
+
+    let hours = now.getHours()
+    const minutes = String(now.getMinutes()).padStart(2, '0')
+    const ampm = hours >= 12 ? 'pm' : 'am'
+    hours = hours % 12 || 12 
+
+
+    return `${day}/${month}/${year} - ${hours}:${minutes} ${ampm}`
+  }
+
+  // Call when backPressed or tick mark pressed
   const saveNoteData = async (noteTitle, noteContent) => {
     try {
 
+      const date = getDate()
+      console.log(date)
       console.log('clicked tick', noteTitle, noteContent)
+      await saveNote(noteTitle, noteContent, bgColour, date)
 
     } catch (error) {
       console.log(error)
@@ -114,7 +109,7 @@ const Note = () => {
       {/* Note content */}
       <ScrollView
 
-        className={'border-t-2 mx-4 mt-2 '}
+        className={'border-t-2 mx-4 mt-2 pr-7'}
         style={{ borderTopColor: getBorderColor(bgColour) }}
         horizontal={false}
       >

@@ -1,10 +1,11 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
-import { Link } from 'expo-router';
-import { useState } from 'react';
+import { Link, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
 import { Dimensions, Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NoteCard from '../components/card';
+import { getAllNotes } from '../lib/dataBase';
 import "./global.css";
 
 export default function Index() {
@@ -12,60 +13,78 @@ export default function Index() {
   const iOS = Platform.OS === 'ios'
   const { width, height } = Dimensions.get('window')
 
-  const [notes, setNotes] = useState([{
-    title: 'Title',
-    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-    date: '02/03/2025 - 3:12 pm',
-    bgColor: 'bg-blue-200'
-  }, {
-    title: 'Title',
-    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-    date: '02/03/2025 - 3:12 pm',
-    bgColor: 'bg-green-200'
-  }, {
-    title: 'Title',
-    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-    date: '02/03/2025 - 3:12 pm',
-    bgColor: 'bg-neutral-200'
-  }, {
-    title: 'Title',
-    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-    date: '02/03/2025 - 3:12 pm',
-    bgColor: 'bg-purple-200'
-  },
-  {
-    title: 'Title',
-    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-    date: '02/03/2025 - 3:12 pm',
-    bgColor: 'bg-red-200'
-  }
-    , {
-    title: 'Title',
-    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-    date: '02/03/2025 - 3:12 pm',
-    bgColor: 'bg-amber-200'
-  },
-  {
-    title: 'Title',
-    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-    date: '02/03/2025 - 3:12 pm',
-    bgColor: 'bg-green-200'
-  },
-  {
-    title: 'Title',
-    noteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
-    date: '02/03/2025 - 3:12 pm',
-    bgColor: 'bg-blue-200'
-  }
-  ])
+  const [notes, setNotes] = useState([{}])
+  // const [notes, setNotes] = useState(
+  //   [
+  //     {
+  //       Title: 'Title',
+  //       NoteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  //       date: '02/03/2025 - 3:12 pm',
+  //       bgColour: 'blue'
+  //     }, {
+  //       Title: 'Title',
+  //       NoteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  //       date: '02/03/2025 - 3:12 pm',
+  //       bgColour: 'green'
+  //     }, {
+  //       Title: 'Title',
+  //       NoteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  //       date: '02/03/2025 - 3:12 pm',
+  //       bgColour: 'neutral'
+  //     }, {
+  //       Title: 'Title',
+  //       NoteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  //       date: '02/03/2025 - 3:12 pm',
+  //       bgColour: 'purple'
+  //     },
+  //     {
+  //       Title: 'Title',
+  //       NoteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  //       date: '02/03/2025 - 3:12 pm',
+  //       bgColour: 'red'
+  //     }
+  //     , {
+  //       Title: 'Title',
+  //       NoteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  //       date: '02/03/2025 - 3:12 pm',
+  //       bgColour: 'amber'
+  //     },
+  //     {
+  //       Title: 'Title',
+  //       NoteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  //       date: '02/03/2025 - 3:12 pm',
+  //       bgColour: 'green'
+  //     },
+  //     {
+  //       Title: 'Title',
+  //       NoteContent: `The floating button is implemented using the TouchableOpacity component, which is styled to float above other content. Key style properties include:`,
+  //       date: '02/03/2025 - 3:12 pm',
+  //       bgColour: 'blue'
+  //     }
+  //   ])
 
   const handleNewNotePress = () => {
     console.log('pressed new Note')
   }
 
+  useFocusEffect(useCallback(() => {
+
+    const fetchNotes = async () => {
+
+      const data = await getAllNotes()
+
+      if (!data) return 
+
+      setNotes(data)
+      // createTable()
+    }
+
+    fetchNotes()
+  }, []))
+
   return (
 
-    <SafeAreaView className='flex-1 bg-red-300'>
+    <SafeAreaView className='flex-1 bg-blue-300'>
 
       {/* logo */}
       <View className={`flex-row items-center justify-between mx-3 ${iOS ? '-mb-2' : 'mb-3'}`}>
@@ -121,7 +140,7 @@ export default function Index() {
 
           {/* card */}
           {
-            notes.map((note, index) => <NoteCard key={index} data={note} />
+            notes.map((notes, index) => <NoteCard key={index} data={notes} />
             )
           }
 
@@ -131,7 +150,7 @@ export default function Index() {
       {/* Floating Action button */}
       <Link
         href={'/Note'}
-        className='absolute bottom-8 right-8 rounded-full border-2 border-purple-200 bg-purple-200 p-4'
+        className='absolute bottom-8 right-8 rounded-full border-2 border-purple-200 purple p-4 bg-purple-200'
         onPress={handleNewNotePress}>
 
         <AntDesign name="plus" size={24} color="black" />
